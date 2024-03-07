@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
 use serde::Serialize;
-use std::collections::VecDeque;
+use std::{collections::VecDeque, num::ParseIntError};
 
 fn read_input(input: Option<&str>) -> String {
     let output = match input {
@@ -58,9 +58,36 @@ fn part2(input: String) -> u32 {
     calories_per_elf.iter().rev().take(3).sum()
 }
 
+#[allow(clippy::manual_unwrap_or)]
+fn part6(input: String) -> u32 {
+    let mut calories_per_elf = input
+        .trim()
+        .split("\n\n")
+        .filter_map(|x| {
+            match x
+                .split('\n')
+                .map(|x| x.parse::<u32>())
+                .collect::<Result<Vec<u32>, ParseIntError>>()
+            {
+                Ok(s) => Some(s.iter().sum()),
+                Err(_) => None,
+            }
+        })
+        .collect::<Vec<u32>>();
+
+    calories_per_elf.sort();
+
+    calories_per_elf.iter().rev().take(3).sum()
+}
+
 fn checksum(value: &str) -> String {
     let checkum = &value[2..];
     checkum.to_string()
+}
+
+fn checksum2(value: &str) -> &str {
+    let checkum = &value[2..];
+    checkum
 }
 
 fn data(value: &str) -> String {
@@ -216,6 +243,12 @@ mod tests {
     //     let value = String::from("A0C0");
     //     assert_eq!(checksum(value), String::from("C0"));
     // }
+    fn test_checksum2() {
+        let value = String::from("A0C0");
+        // assert_eq!(checksum2(value), "C0");
+        // drop(value);
+        assert_eq!(checksum2(&value), "C0");
+    }
 
     #[test]
     fn test_data() {
@@ -283,6 +316,32 @@ mod tests {
         dbg!(&input);
         let answer = part5(input);
         assert_eq!(answer, String::from(r#"{"data":"*5DC0*","checksum":"C0"}"#));
+    }
+
+    #[test]
+    fn test_part6_sample() {
+        let input = read_input(Some(indoc!(
+            // 11000 + 10000 + 3000+2000+1000 = 27000
+            "
+            1000
+            2000
+            3000
+
+            4000
+
+            5000
+            6000
+
+            7000
+            bidule
+            9000
+
+            10000
+            "
+        )));
+        dbg!(&input);
+        let answer = part6(input);
+        assert_eq!(answer, 27000);
     }
 
     #[ignore]
