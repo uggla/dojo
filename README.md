@@ -134,6 +134,15 @@ before the data and checksum calculations are performed.
 The elves have just discovered json, you should now provide the
 SantaComputer struct serialized into json.
 
+### Part 6
+
+Starting from part2, if you encounter an invalid value, you must not set it to 0.
+You must discard all the colories transported by that elf.
+
+### Part 7
+
+Create a checksum2 function that return an &str instead of a string.
+
 ## Proposed editor
 
 The idea is to use on online editor. Gitpod seems a good solution in that
