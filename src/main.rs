@@ -80,6 +80,19 @@ fn part6(input: String) -> u32 {
     calories_per_elf.iter().rev().take(3).sum()
 }
 
+#[allow(clippy::manual_unwrap_or)]
+fn part6_refacto(input: String) -> u32 {
+    let mut calories_per_elf = input
+        .trim()
+        .split("\n\n")
+        .filter_map(|x| x.split('\n').map(|x| x.parse::<u32>().ok()).sum())
+        .collect::<Vec<u32>>();
+
+    calories_per_elf.sort();
+
+    calories_per_elf.iter().rev().take(3).sum()
+}
+
 fn checksum(value: &str) -> String {
     let checkum = &value[2..];
     checkum.to_string()
@@ -366,7 +379,9 @@ mod tests {
             "
         )));
         dbg!(&input);
-        let answer = part6(input);
+        let answer = part6(input.clone());
+        assert_eq!(answer, 27000);
+        let answer = part6_refacto(input);
         assert_eq!(answer, 27000);
     }
 
