@@ -114,8 +114,34 @@ fn part5(input: String) -> String {
     serde_json::to_string(&part4).unwrap()
 }
 
+trait Topable {
+    fn top(&self, n: usize) -> Self;
+}
+
+impl<T: std::cmp::Ord + Clone> Topable for Vec<T> {
+    fn top(&self, n: usize) -> Self {
+        let mut top = self.clone();
+        top.sort();
+        top.reverse();
+        top.truncate(n);
+        top
+    }
+}
+
 fn part8(input: String) -> u32 {
-    todo!("Implement part 8");
+    let calories_per_elf = input
+        .trim()
+        .split("\n\n")
+        .map(|x| {
+            x.split('\n')
+                .map(|x| x.parse::<u32>().unwrap_or(0))
+                .sum::<u32>()
+        })
+        .collect::<Vec<u32>>();
+
+    let calories_per_elf = calories_per_elf.top(3);
+
+    calories_per_elf.iter().sum()
 }
 
 fn main() {
@@ -344,7 +370,6 @@ mod tests {
         assert_eq!(answer, 27000);
     }
 
-    #[ignore]
     #[test]
     fn test_part8_sample() {
         let input = read_input(Some(indoc!(
