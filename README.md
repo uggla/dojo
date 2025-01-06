@@ -136,12 +136,17 @@ SantaComputer struct serialized into json.
 
 ### Part 6
 
-Starting from part2, if you encounter an invalid value, you must not set it to 0.
+Starting from part3, if you encounter an invalid value, you must not set it to 0.
 You must discard all the colories transported by that elf.
 
 ### Part 7
 
 Create a checksum2 function that return an &str instead of a string.
+
+### Part 8
+
+Create a .top(n) function that return the top n elements of the vector.
+This can be achieved using the extension traits pattern.
 
 ## Proposed editor
 

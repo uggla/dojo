@@ -31,6 +31,10 @@ fn part5(input: String) -> String {
     todo!("Implement part 5");
 }
 
+fn part8(input: String) -> String {
+    todo!("Implement part 8");
+}
+
 fn main() {
     let input = read_input(None);
 
@@ -192,5 +196,31 @@ mod tests {
         dbg!(&input);
         let answer = part5(input);
         assert_eq!(answer, String::from(r#"{"data":"*5DC0*","checksum":"C0"}"#));
+    }
+
+    #[ignore]
+    #[test]
+    fn test_part8_sample() {
+        let input = read_input(Some(indoc!(
+            "
+            1000
+            2000
+            3000
+
+            4000
+
+            5000
+            6000
+
+            7000
+            8000
+            9000
+
+            10000
+            "
+        )));
+        dbg!(&input);
+        let answer = part2(input);
+        assert_eq!(answer, 45000);
     }
 }
