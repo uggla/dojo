@@ -31,7 +31,7 @@ fn part5(input: String) -> String {
     todo!("Implement part 5");
 }
 
-fn part8(input: String) -> String {
+fn part8(input: String) -> u32 {
     todo!("Implement part 8");
 }
 
@@ -220,7 +220,7 @@ mod tests {
             "
         )));
         dbg!(&input);
-        let answer = part2(input);
+        let answer = part8(input);
         assert_eq!(answer, 45000);
     }
 }
